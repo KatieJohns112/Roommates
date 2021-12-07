@@ -106,25 +106,33 @@ namespace Roommates
                         break;
 
                         case ("Search for Roommate"):
-                        Console.Write("Roommate Id: ");
+                        Console.Write("Roommate Information: ");
                         int rid = int.Parse(Console.ReadLine());
 
                         Roommate roommate = roommateRepo.GetById(rid);
 
-                        Console.WriteLine($"roommate id : {roommate.Id}  roommate first name : {roommate.FirstName}  roommate rent portion : {roommate.RentPortion} .)");
+                        Console.WriteLine($" roommate id : {roommate.Id}\n roommate first name : {roommate.FirstName}\n roommate rent portion : ${roommate.RentPortion}.00");
                         Console.Write("Press any key to continue");
                         Console.ReadKey();
                         break;
 
-                    case ("Exit"):
+                        case "Show unassigned chores":
+                        List<Chore> getUnassigned = choreRepo.GetUnassignedChores();
+
+                        foreach (Chore c in getUnassigned)
+                        {
+                            Console.WriteLine($"{c.Id}. {c.Name} is unassigned");
+                        }
+                        Console.Write("Press any key to continue");
+                        Console.ReadLine();
+                        break;
+
+                        case ("Exit"):
                         runProgram = false;
                         break;
 
                 }
             }
-           
-
-
         }
 
         static string GetMenuSelection()
@@ -140,6 +148,7 @@ namespace Roommates
                 "Search for chore",
                 "Add a chore",
                 "Search for Roommate",
+                "Show unassigned chores",
                 "Exit"
             };
 
